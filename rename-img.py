@@ -2,18 +2,51 @@ import os
 from PIL import Image
 # import shutil
 
-def rename(dir_path, img):  
-    new_filename = img
-    end = new_filename.split('_')[3]
-    new_name_prefix = f"{new_filename.split('_')[0]}_{new_filename.split('_')[2]}_{end.split('.')[0]}_{new_filename.split('_')[1]}"
-    extension = os.path.splitext(new_filename)[1] 
-    # print(new_name_prefix)
+# def rename(dir_path, img):  
+#     new_filename = img
+#     end = new_filename.split('_')[3]
+#     new_name_prefix = f"{new_filename.split('_')[0]}_{new_filename.split('_')[2]}_{end.split('.')[0]}_{new_filename.split('_')[1]}"
+#     extension = os.path.splitext(new_filename)[1] 
+#     # print(new_name_prefix)
 
-    new_filename = f"{new_name_prefix}{extension}" 
-    # print(new_filename)
-    os.rename(os.path.join(dir_path, img), os.path.join(dir_path, new_filename)) 
+#     new_filename = f"{new_name_prefix}{extension}" 
+#     # print(new_filename)
+#     os.rename(os.path.join(dir_path, img), os.path.join(dir_path, new_filename)) 
 
+def rename1(dir_path, img):
+    channel = ["CFP", "YFP", "GFP", "TRITC", "Far-red", "DAPI"]
+    new_filename = img.split('_') 
 
+    #split up individual parts of img form .tif or other type of extension given there is only a "." separation
+    for i, name in enumerate(new_filename):
+        if ".tif" in name:
+            new = name.split('.')
+            new_filename[i] = new[0]
+
+    #remove target channel
+    contain = []
+    prefix = ""
+    for i in new_filename: 
+        if i in channel:
+            contain.append(i)
+            new_filename.remove(i) 
+    
+    # If not channel name is given in image name
+    if len(contain) == 0:
+        print(f'WARNING: No channel name is given in image name "{img}"')
+        return 
+
+    #construct file name
+    for i in new_filename:  
+        prefix += i + "_"  
+    extension = os.path.splitext(img)[1] 
+    prefix += contain[0] + extension
+    
+    # rename
+    os.rename(os.path.join(dir_path, img), os.path.join(dir_path, prefix)) 
+  
+            
+    
 # Set the directory path
 dir_path = "/Users/lian/Desktop/Cellpose/Testing1" 
   
@@ -24,5 +57,5 @@ for file_name in os.listdir(dir_path):
         # rename the file 
         # new_name = os.path.join(dir_path, "copy" + file_name)
         # shutil.copyfile(os.path.join(dir_path, file_name), new_name) 
-        rename(dir_path, file_name)
+        rename1(dir_path, file_name)
   
