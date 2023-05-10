@@ -5,7 +5,7 @@ import os
 from PIL import Image
 
 # Set the directory path
-dir_path = "/Users/lian/Desktop/Cellpose/First10" 
+dir_path = "/Users/lian/Desktop/Cellpose/First10"   
   
 # Loop through all files in the directory
 for file_name in os.listdir(dir_path):
