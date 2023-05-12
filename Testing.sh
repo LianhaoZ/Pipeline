@@ -1,11 +1,23 @@
 #!/bin/bash 
+#SBATCH -A b1151                # Allocation
+#SBATCH -p b1151                # Queue
+#SBATCH -t 04:00:00             # Walltime/duration of the job - change as needed
+#SBATCH --nodes=1                    # Number of Nodes
+#SBATCH --mem=10G               # Memory per node in GB needed for a job. Also see --mem-per-cpu
+#SBATCH --mail-user=<my_email>  # Designate email address for job communications
+#SBATCH --mail-type=END     # Events options are job BEGIN, END, NONE, FAIL, REQUEUE
+#SBATCH --error=<file_path>     # Path for errors must alread$
+#SBATCH --job-name="test"	# Name of job
+
+modulo purge all
+conda activate /projects/b1151/lab/software/envs/cellpose 
 
 # The purpose of this Bash Script is to run cellpose on a folder of folders each with images to segment. 
 # The resulting file will be in a folder within each of the folder that the iamges are ran in.
 
-source /Users/lian/anaconda3/etc/profile.d/conda.sh
+# source /Users/lian/anaconda3/etc/profile.d/conda.sh
 
-conda activate cellpose 
+# conda activate cellpose  
 
 ##### logfile #####
 logfolder="log.txt" 
@@ -76,7 +88,8 @@ echo "Done Processing Everything" >> $logfolder
 # to clear the log file run below cmd
 # > log.txt
 
-
+conda deactivate
+modulo purge all
  
 # python -m cellpose --dir ~/Desktop/Cellpose/Testing1 --savedir ~/Desktop/Cellpose/Testing1 --img_filter CFP --pretrained_model cyto2 --chan 0 --diameter 0. --save_tif 
  
