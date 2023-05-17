@@ -15,7 +15,7 @@ conda activate /projects/b1151/lab/software/envs/cellpose
 # The purpose of this Bash Script is to run cellpose on a folder of folders each with images to segment. 
 # The resulting file will be in a folder within each of the folder that the iamges are ran in.
 
-# source /Users/lian/anaconda3/etc/profile.d/conda.sh
+# source /Users/lian/anaconda3/etc/profile.d/conda.sh 
 
 # conda activate cellpose  
 
