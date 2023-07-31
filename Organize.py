@@ -25,4 +25,4 @@ if __name__ == "__main__":
     source_directory = "/Volumes/microscope/scope1/datadrive_F/users/KL/2023/20230619_expt_im012/tifs"  # Path to the source directory
 
     organize_folders(source_directory)
-Displaying Organize.py.
+ 
